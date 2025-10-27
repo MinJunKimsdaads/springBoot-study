@@ -5,12 +5,13 @@ import java.util.Optional;
 
 import hello.hello_spring.domain.Member;
 import hello.hello_spring.repository.MemberRepository;
-import hello.hello_spring.repository.MemoryMemberRepository;
 
 public class MemberService {
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+    public MemberService(MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
+    }
     
-
     //회원 가입
     public Long join(Member member){
         validateDuplicateMember(member); //중복 확인
@@ -27,7 +28,7 @@ public class MemberService {
     }
 
     //회원 전체 조회
-    public List<Member> finMembers(){
+    public List<Member> findMembers(){
         return memberRepository.findAll();
     }
 
